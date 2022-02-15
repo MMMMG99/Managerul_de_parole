@@ -7,7 +7,7 @@ FONT_NAME = 'Arial'
 letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
-# ---------------------------- SEARCH PASSWORD ------------------------------- #
+
 def search_password():
     site_cautat = website_entry.get()
     try:
@@ -19,7 +19,7 @@ def search_password():
         messagebox.showerror(title="Eroare", message="Nu exista fisierul")
     except KeyError:
         messagebox.showerror(title="Eroare", message="Nu exista detalii despre site")
-# ---------------------------- PASSWORD GENERATOR ------------------------------- #
+
 def parola_random():
     copy_letters = letters
     copy_numbers = numbers
@@ -61,7 +61,7 @@ def parola_random():
 
     password_entry.insert(END, string=password_randomised)
 
-# ---------------------------- SAVE PASSWORD ------------------------------- #
+
 
 def add_click():
     #luam datele din fiecare casuta
@@ -79,20 +79,11 @@ def add_click():
         messagebox.showerror(title="Eroare", message="Verificati din nou datele introduse")
     else:
         try:
-            # le scriem in fisier
             with open('passwords.json', 'r') as fisier:
-                # scrierea intr-un fisier de tip json:
-                # json.dump(new_data, fisier, indent=5)
-
-                # citirea datelor dintr-un fisier json
-                # date = json.load(fisier)
-
-                # actualizarea datelor intr-un fisier json
                 date = json.load(fisier)
                 date.update(new_data)
             with open('passwords.json', 'w') as fisier:
                 json.dump(date, fisier, indent=5)
-                # stergem continutul care probabil va trebui schimbat
                 website_entry.delete(0, END)
                 password_entry.delete(0, END)
         except FileNotFoundError:
@@ -100,13 +91,10 @@ def add_click():
                 json.dump(new_data, fisier, indent=5)
                 website_entry.delete(0, END)
                 password_entry.delete(0, END)
-# ---------------------------- UI SETUP ------------------------------- #
 
 window = Tk()
 window.title("Managerul de parole")
 window.config(padx=20, pady=20)
-
-
 
 canvas = Canvas(width=200, height=190, highlightthickness=0)
 poza_logo = PhotoImage(file='logo.png')
@@ -129,7 +117,6 @@ password = Label(text='Password:', font=(FONT_NAME, 15, 'normal'))
 password.grid(row=3, column=0)
 password_entry = Entry(width=35)
 password_entry.grid(row=3, column=1, columnspan=2, sticky=tkinter.W)
-
 
 generate_password = Button(text='Generate Password', font=(FONT_NAME, 15, 'normal'), width=16, command=parola_random)
 generate_password.grid(row=3, column=2, sticky=tkinter.W, columnspan=2)
